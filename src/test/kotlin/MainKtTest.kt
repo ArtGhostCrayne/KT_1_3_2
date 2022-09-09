@@ -66,7 +66,7 @@ class MainKtTest {
             sumPerMonth = sumPerMonth,
             amount = amount
         )
-        assertEquals(-1, result)
+        assertEquals(0, result)
     }
 
 
