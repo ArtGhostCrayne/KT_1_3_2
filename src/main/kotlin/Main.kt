@@ -1,24 +1,34 @@
-fun main(args: Array<String>) {
+const val MIR = "Mir"
+const val VK = "Vkpay"
+const val MASTERCARD = "Mastercard"
+const val MAESTRO = "Maestro"
+const val VISA = "Visa"
 
-    val payType: String = "Mastercard" //VKpay, Mastercard, Maestro, Mir, Visa
+
+fun main() {
+
+    val payType = MIR
     val sumPerMonth = 70000
-    val amount = 300
+    val amount = 3000
 
-    println("Ïåðåâîä íà $amount ðóá. êîìèññèÿ ñîñòàâèò ${calcFee(sumPerMonth = sumPerMonth, amount = amount)} êîï.")
+    val fee = calcFee(payType = payType, sumPerMonth = sumPerMonth, amount = amount)
+    if (fee != -1) {
+        println("ÐŸÐµÑ€ÐµÐ²Ð¾Ð´ $amount Ñ€ÑƒÐ±. ÐºÐ¾Ð¼Ð¸ÑÑÐ¸Ñ $fee ÐºÐ¾Ð¿.")
+    } else
+        println("ÐŸÐµÑ€ÐµÐ²Ð¾Ð´ Ð½Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶ÐµÐ½")
 
 }
 
-fun calcFee(payType: String = "VKpay", sumPerMonth: Int, amount: Int): Int {
+fun calcFee(payType: String, sumPerMonth: Int, amount: Int): Int {
 
     return when (payType) {
-        "VKpay" -> 0
-        "Mastercard", "Maestro" -> if (sumPerMonth < 75000) {
+        VK -> 0
+        MASTERCARD, MAESTRO -> if (sumPerMonth < 75000) {
             ((amount * 100) / 100 * 0.6).toInt()
         } else {
             0
         }
-
-        "Mir", "Visa" -> ((amount * 100) / 100 * 0.75).toInt()
-        else -> 0
+        MIR, VISA -> ((amount * 100) / 100 * 0.75).toInt()
+        else -> -1
     }
 }
